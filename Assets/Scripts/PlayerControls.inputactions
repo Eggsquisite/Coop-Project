@@ -37,17 +37,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "633bfc66-c2c9-40ee-89b3-26d3330465ad",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardRight",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "WASD",
                     "id": "bc057c6a-b804-4847-bded-b8af7dbd6fdc",
                     "path": "2DVector",
