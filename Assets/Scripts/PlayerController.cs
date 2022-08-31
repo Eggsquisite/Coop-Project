@@ -1,60 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float playerSpeed = 2.0f;
-    [SerializeField]
-    private float jumpHeight = 1.0f;
-    [SerializeField]
-    private float gravityValue = -9.81f;
-
-    private CharacterController controller;
-    private Vector2 playerVelocity;
-    private bool groundedPlayer;
-
-    private Vector2 movementInput = Vector2.zero;
-    private bool jumped = false;
-
-    private void Start()
-    {
-        controller = GetComponent<CharacterController>();
+    private enum PlayerState {
+        Idle,
+        Moving,
+        Attacking,
+        Stunned,
+        Dying,
     }
 
-    // Assigning input using input manager
+    private enum PlayerType {
+        Swordmaster,
+        Gunslinger
+    }
+    [Header("Components")]
+    private Rigidbody2D rb;
+
+    [Header("Character Specific Values")]
+    [SerializeField] private PlayerType type;
+    private PlayerState state = PlayerState.Idle;
+
+    [Header("Movement Values")]
+    [SerializeField] private float playerSpeed;
+    [SerializeField] [Range(0, 1)]
+    private float verticalSpeedMultiplier;
+    [SerializeField] [Range(0, 1)]
+    private float horizontalSpeedMultiplier;
+    private Vector2 movement;
+
+    [Header("Jump Values")]
+    [SerializeField] private float jumpSpeed;
+    [SerializeField] private float fallSpeed;
+    private bool isJumping;
+
+    [Header("Dash Values")]
+    [SerializeField] private float dashTime;
+    [SerializeField] private float dashSpeed;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     public void OnMove(InputAction.CallbackContext context) {
-        movementInput = context.ReadValue<Vector2>();
+        movement = context.ReadValue<Vector2>().normalized;
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        jumped = context.action.triggered;
+        isJumping = context.action.triggered;
     }
 
-    void Update()
+    // Update is called once per frame
+    void FixedUpdate()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
+        // If player is dead, stop all actions (excluding death)
+        if (state == PlayerState.Dying)
+            return;
 
-        Vector2 move = new Vector2(movementInput.x, playerVelocity.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        // If any player type is stunned, prevent movement
+        if (state != PlayerState.Stunned)
+            Move();
+    }
 
-        if (move != Vector2.zero)
-        {
-            gameObject.transform.forward = move;
-        }
+    private void Move() {
+        // Swordmaster cannot move while attacking
+        if (type == PlayerType.Swordmaster && state == PlayerState.Attacking)
+            return;
 
-        // Changes the height position of the player..
-        if (jumped && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
-
-        //playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        rb.MovePosition(rb.position + 
+                new Vector2(movement.x * horizontalSpeedMultiplier, movement.y * verticalSpeedMultiplier) * playerSpeed * Time.deltaTime);
     }
 }
