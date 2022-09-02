@@ -86,12 +86,12 @@ public class PlayerController : MonoBehaviour
     private void UpdatePlayerState() {
         switch(type) {
             case PlayerType.Swordmaster:
-                if (combat.GetIsAttack()) 
+                if (combat.GetIsAttack() && animations.GetAttackReady()) 
                     SetState(PlayerState.Attacking);
                 // If player input is > 0, player is attempting to move
-                else if (movement.x != 0 || movement.y != 0)
+                else if ((movement.x != 0 || movement.y != 0) && !animations.GetIsAttacking())
                     SetState(PlayerState.Walking);
-                else if (movement.x == 0 && movement.y == 0)
+                else if (movement.x == 0 && movement.y == 0 && !animations.GetIsAttacking())
                     SetState(PlayerState.Idle);
                 
 
@@ -117,8 +117,9 @@ public class PlayerController : MonoBehaviour
     private void UpdatePlayerAnimation() {
         switch (state) {
             case PlayerState.Attacking:
-                if (animations.GetAttackReady()) {
+                if (animations.GetAttackReady() && !animations.GetIsAttacking()) {
                     animations.AttackAnim(false);
+                    Debug.Log("Setting attack");
                 }
                 break;
             case PlayerState.Walking:
@@ -165,6 +166,6 @@ public class PlayerController : MonoBehaviour
             return;
 
         state = newState;
-        Debug.Log("New state: " + state);
+        //Debug.Log("New state: " + state);
     }
 }

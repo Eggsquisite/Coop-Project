@@ -13,7 +13,7 @@ public class PlayerAnimations : MonoBehaviour
 
     [Header("Attack Animation Variables")]
     [SerializeField] private float attackTimerBuffer;
-    private int attackFlow = 0;
+    private int attackFlow = 1;
     private bool isAttacking, attackResetWait, attackReady = true;
     private float attackTimer, attackLength;
     private Coroutine oneRoutine;
@@ -23,22 +23,6 @@ public class PlayerAnimations : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         ac = anim.runtimeAnimatorController;
-    }
-
-    void Update() {
-        if (isAttacking) {
-            ResetAttackFlow();
-        }
-    }
-
-    private void ResetAttackFlow() {
-        if (attackTimer < attackLength) 
-            attackTimer += Time.deltaTime;
-        else if (attackTimer > attackLength) {
-            attackTimer = attackLength;
-            attackFlow = 0;
-            isAttacking = false;
-        }
     }
 
     // Animation Helper Functions ////////////////////////////////////////
@@ -57,59 +41,74 @@ public class PlayerAnimations : MonoBehaviour
     public void WalkAnim() { PlayAnimation(PlayerAnims.WALK); }
 
     public void AttackAnim(bool specialAttackflag) {
-        attackTimer = 0;
-        isAttacking = true;
-        attackReady = false;
-        attackFlow = specialAttackflag ? 5: attackFlow + 1;
-
-        // Reset attack flow to 0 if reached max
-        if (attackFlow == 4)
-            attackFlow = 1;
+        if (!attackReady)
+            return;
+        
+        if (specialAttackflag)
+            attackFlow = 5;
+        //attackFlow = specialAttackflag ? 5: attackFlow + 1;
 
         switch (attackFlow) {
             case 1:
                 attackLength = GetAnimationLength(PlayerAnims.ATTACK_1);
+                //Debug.Log("Anim 1");
                 PlayAnimation(PlayerAnims.ATTACK_1);
 
-                if (oneRoutine != null)
-                    StopCoroutine(ResetAttack(attackLength));
-                oneRoutine = StartCoroutine(ResetAttack(attackLength));
+                // if (oneRoutine != null)
+                //     StopCoroutine(ResetAttack(attackLength));
+                // oneRoutine = StartCoroutine(ResetAttack(attackLength));
                 break;
             case 2:
+                //Debug.Log("Anim 2");
                 attackLength = GetAnimationLength(PlayerAnims.ATTACK_2);
                 PlayAnimation(PlayerAnims.ATTACK_2);
                 
-                if (oneRoutine != null)
-                    StopCoroutine(ResetAttack(attackLength));
-                oneRoutine = StartCoroutine(ResetAttack(attackLength));
+                // if (oneRoutine != null)
+                //     StopCoroutine(ResetAttack(attackLength));
+                // oneRoutine = StartCoroutine(ResetAttack(attackLength));
                 break;
             case 3:
+                //Debug.Log("Anim 3");
                 attackLength = GetAnimationLength(PlayerAnims.ATTACK_3);
                 PlayAnimation(PlayerAnims.ATTACK_3);
 
-                if (oneRoutine != null)
-                    StopCoroutine(ResetAttack(attackLength));
-                oneRoutine = StartCoroutine(ResetAttack(attackLength));
+                // if (oneRoutine != null)
+                //     StopCoroutine(ResetAttack(attackLength));
+                // oneRoutine = StartCoroutine(ResetAttack(attackLength));
                 break;
             case 5:
                 attackLength = GetAnimationLength(PlayerAnims.ATTACK_4);
                 PlayAnimation(PlayerAnims.ATTACK_4);
 
-                if (oneRoutine != null)
-                    StopCoroutine(ResetAttack(attackLength));
-                oneRoutine = StartCoroutine(ResetAttack(attackLength));
+                // if (oneRoutine != null)
+                //     StopCoroutine(ResetAttack(attackLength));
+                // oneRoutine = StartCoroutine(ResetAttack(attackLength));
                 break;
             default:
                 break;
         }
     }
 
-    IEnumerator ResetAttack(float delay) {
-        yield return new WaitForSeconds(delay);
-        attackFlow = 0;
+    // ANIMATION EVENTS ////////////////////////////////////////////
+    private void BeginAttack(int flow) {
+        attackFlow = flow;
+        isAttacking = true;
+        attackReady = false;
+    }
+    private void EndAttack() {
+        attackFlow = 1;
         isAttacking = false;
         attackReady = true;
     }
+    private void SetAttackReady(int flag) { 
+        if (flag == 0) {
+            attackReady = false;
+            Debug.Log("Setting false");
+        }
+        else if (flag == 1) attackReady = true;
+    }
 
+
+    public bool GetIsAttacking() { return isAttacking; }
     public bool GetAttackReady() { return attackReady; }
 }
