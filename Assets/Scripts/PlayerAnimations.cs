@@ -50,39 +50,16 @@ public class PlayerAnimations : MonoBehaviour
 
         switch (attackFlow) {
             case 1:
-                attackLength = GetAnimationLength(PlayerAnims.ATTACK_1);
-                //Debug.Log("Anim 1");
                 PlayAnimation(PlayerAnims.ATTACK_1);
-
-                // if (oneRoutine != null)
-                //     StopCoroutine(ResetAttack(attackLength));
-                // oneRoutine = StartCoroutine(ResetAttack(attackLength));
                 break;
             case 2:
-                //Debug.Log("Anim 2");
-                attackLength = GetAnimationLength(PlayerAnims.ATTACK_2);
                 PlayAnimation(PlayerAnims.ATTACK_2);
-                
-                // if (oneRoutine != null)
-                //     StopCoroutine(ResetAttack(attackLength));
-                // oneRoutine = StartCoroutine(ResetAttack(attackLength));
                 break;
             case 3:
-                //Debug.Log("Anim 3");
-                attackLength = GetAnimationLength(PlayerAnims.ATTACK_3);
                 PlayAnimation(PlayerAnims.ATTACK_3);
-
-                // if (oneRoutine != null)
-                //     StopCoroutine(ResetAttack(attackLength));
-                // oneRoutine = StartCoroutine(ResetAttack(attackLength));
                 break;
             case 5:
-                attackLength = GetAnimationLength(PlayerAnims.ATTACK_4);
                 PlayAnimation(PlayerAnims.ATTACK_4);
-
-                // if (oneRoutine != null)
-                //     StopCoroutine(ResetAttack(attackLength));
-                // oneRoutine = StartCoroutine(ResetAttack(attackLength));
                 break;
             default:
                 break;
@@ -101,13 +78,11 @@ public class PlayerAnimations : MonoBehaviour
         attackReady = true;
     }
     private void SetAttackReady(int flag) { 
-        if (flag == 0) {
-            attackReady = false;
-            Debug.Log("Setting false");
-        }
+        if (flag == 0) attackReady = false; 
         else if (flag == 1) attackReady = true;
     }
 
+    // GETTERS / SETTERS //////////////////////////////////////////////
 
     public bool GetIsAttacking() { return isAttacking; }
     public bool GetAttackReady() { return attackReady; }

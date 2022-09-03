@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private PlayerState state = PlayerState.Idle;
 
     // Gunslinger attack is independent of movement
-    private bool isFiring, isAttacking;
+    private bool isFiring;
 
     [Header("Movement Values")]
     [SerializeField] private float playerSpeed;
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     private void UpdatePlayerState() {
         switch(type) {
             case PlayerType.Swordmaster:
-                if (combat.GetIsAttack() && animations.GetAttackReady()) 
+                if (combat.GetAttackPressed() && animations.GetAttackReady()) 
                     SetState(PlayerState.Attacking);
                 // If player input is > 0, player is attempting to move
                 else if (!animations.GetIsAttacking()) {
@@ -101,9 +101,9 @@ public class PlayerController : MonoBehaviour
 
             case PlayerType.Gunslinger:
                 // Gunslinger attack is independent from movement
-                if (combat.GetIsAttack() && !isFiring)
+                if (combat.GetAttackPressed() && !isFiring)
                     isFiring = true;
-                else if (!combat.GetIsAttack() && isFiring)
+                else if (!combat.GetAttackPressed() && isFiring)
                     isFiring = false;
 
                 // If player input is > 0, player is attempting to move
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
     private void UpdatePlayerAnimation() {
         switch (state) {
             case PlayerState.Attacking:
-                if (combat.GetIsAttack() && animations.GetAttackReady()) 
+                if (combat.GetAttackPressed() && animations.GetAttackReady()) 
                     animations.AttackAnim(false);
                 break;
             case PlayerState.Walking:

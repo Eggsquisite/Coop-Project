@@ -8,30 +8,32 @@ public class PlayerCombat : MonoBehaviour
     InputAction _attackAction;
 
     [Header("Attack Properties")]
-    private bool isAttacking;
+    private bool attackPressed;
     private bool switchWeapon;
 
     static bool IsDown(InputAction action) => action.phase == InputActionPhase.Performed;
     static bool IsUp(InputAction action) => action.phase == InputActionPhase.Canceled;
 
-    void Update() {
-        // if (IsDown(_attackAction)) 
-        //     isAttacking = true;
-        // else if (IsUp(_attackAction))
-        //     isAttacking = false;
-    }
-
     public void OnMainAttack(InputAction.CallbackContext context) {
         if (context.performed)
-            isAttacking = true;
+            attackPressed = true;
         else if (context.canceled)
-            isAttacking = false;
+            attackPressed = false;
     }
 
     public void OnSwitchWeapon(InputAction.CallbackContext context) {
         switchWeapon = context.started;
     }
 
-    public bool GetIsAttack() { return isAttacking; }
+    // SETTERS //////////////////////////////////////////////////////////////
+
+    // Called at beginning of attack animation to disallow holding the button (Swordmaster)
+    private void SetAttackPressed(int flag) {
+        if (flag == 0) attackPressed = false;
+        else if (flag == 1) attackPressed = true;
+    }
+
+    // GETTERS ///////////////////////////////////////////////////////////////
+    public bool GetAttackPressed() { return attackPressed; }
     public bool GetSwitchWeapon() { return switchWeapon; }
 }
