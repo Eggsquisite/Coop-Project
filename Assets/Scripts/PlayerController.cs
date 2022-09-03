@@ -89,10 +89,12 @@ public class PlayerController : MonoBehaviour
                 if (combat.GetIsAttack() && animations.GetAttackReady()) 
                     SetState(PlayerState.Attacking);
                 // If player input is > 0, player is attempting to move
-                else if ((movement.x != 0 || movement.y != 0) && !animations.GetIsAttacking())
-                    SetState(PlayerState.Walking);
-                else if (movement.x == 0 && movement.y == 0 && !animations.GetIsAttacking())
-                    SetState(PlayerState.Idle);
+                else if (!animations.GetIsAttacking()) {
+                    if (movement.x != 0 || movement.y != 0)
+                        SetState(PlayerState.Walking);
+                    else if (movement.x == 0 && movement.y == 0)
+                        SetState(PlayerState.Idle);
+                }
                 
 
                 break;
@@ -117,10 +119,8 @@ public class PlayerController : MonoBehaviour
     private void UpdatePlayerAnimation() {
         switch (state) {
             case PlayerState.Attacking:
-                if (animations.GetAttackReady() && !animations.GetIsAttacking()) {
+                if (combat.GetIsAttack() && animations.GetAttackReady()) 
                     animations.AttackAnim(false);
-                    Debug.Log("Setting attack");
-                }
                 break;
             case PlayerState.Walking:
                 animations.WalkAnim();
