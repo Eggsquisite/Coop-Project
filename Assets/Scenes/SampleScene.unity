@@ -512,7 +512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   playerSpeed: 5
-  verticalSpeedMultiplier: 0.7
+  verticalSpeedMultiplier: 0.8
   horizontalSpeedMultiplier: 1
   jumpSpeed: 0
   fallSpeed: 0
@@ -741,7 +741,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.4255815, y: 1}
+    m_SensorSize: {x: 2.5847666, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
