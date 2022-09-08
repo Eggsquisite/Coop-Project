@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 204386200}
   - component: {fileID: 204386201}
   - component: {fileID: 204386202}
+  - component: {fileID: 204386203}
   - component: {fileID: 204386199}
   - component: {fileID: 204386196}
   m_Layer: 7
@@ -399,51 +400,15 @@ MonoBehaviour:
     m_ActionId: 84eecba9-299f-45ba-8691-c9bae7894b66
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 204386199}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 5df4d272-99c0-4703-b15c-a1d8dcf1ddd2
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 204386202}
-        m_TargetAssemblyTypeName: PlayerCombat, Assembly-CSharp
-        m_MethodName: OnMainAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 3e98c8c2-83ac-431f-9166-62d26e3a310d
     m_ActionName: Player/MainAttack[/Mouse/leftButton,/Keyboard/f]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 204386202}
-        m_TargetAssemblyTypeName: PlayerCombat, Assembly-CSharp
-        m_MethodName: OnSwitchWeapon
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 8013ecde-9a45-45df-94c5-04f88ade62a6
     m_ActionName: Player/SwitchWeapon[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
@@ -511,13 +476,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  playerSpeed: 5
-  verticalSpeedMultiplier: 0.8
-  horizontalSpeedMultiplier: 1
-  jumpSpeed: 0
-  fallSpeed: 0
-  dashTime: 0
-  dashSpeed: 0
 --- !u!95 &204386200
 Animator:
   serializedVersion: 4
@@ -563,6 +521,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce330f0196f4c2419433dd212336b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &204386203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204386191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f82ab90d113f7b41823a7de09cd55ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 5
+  verticalSpeedMultiplier: 0.8
+  horizontalSpeedMultiplier: 1
+  jumpSpeed: 0
+  fallSpeed: 0
+  dashTime: 0
+  dashSpeed: 0
 --- !u!1 &232829387
 GameObject:
   m_ObjectHideFlags: 3
@@ -741,7 +718,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.5847666, y: 1}
+    m_SensorSize: {x: 2.591133, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

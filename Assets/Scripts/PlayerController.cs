@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,12 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     private Rigidbody2D rb;
     private PlayerCombat combat;
+    private PlayerMovement move;
     private PlayerAnimations animations;
+    
+    [Header("Input Actions Variables")]
+    private PlayerInputControls inputControls;
+    private InputAction movementInput;
 
     [Header("Character Specific Values")]
     [SerializeField] private PlayerType type;
@@ -31,38 +37,51 @@ public class PlayerController : MonoBehaviour
 
     // Gunslinger attack is independent of movement
     private bool isFiring;
+    private Vector2 moveVector;
 
-    [Header("Movement Values")]
-    [SerializeField] private float playerSpeed;
-    [SerializeField] [Range(0, 1)]
-    private float verticalSpeedMultiplier;
-    [SerializeField] [Range(0, 1)]
-    private float horizontalSpeedMultiplier;
-    private Vector2 movement;
-
-    [Header("Jump Values")]
-    [SerializeField] private float jumpSpeed;
-    [SerializeField] private float fallSpeed;
-    private bool isJumping;
-
-    [Header("Dash Values")]
-    [SerializeField] private float dashTime;
-    [SerializeField] private float dashSpeed;
+    [Header("Input Values")]
+    private bool mainAttackPressed, secondaryAttackPressed, switchWeapon;
+    private bool jumpPressed;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        move = GetComponent<PlayerMovement>();
         combat = GetComponent<PlayerCombat>();
         animations = GetComponent<PlayerAnimations>();
+        inputControls = new PlayerInputControls();
     }
 
-    public void OnMove(InputAction.CallbackContext context) {
-        movement = context.ReadValue<Vector2>().normalized;
+    private void OnEnable() {
+        movementInput = inputControls.Player.Movement;
+        movementInput.Enable();
+
+        inputControls.Player.MainAttack.performed += OnMainAttack;
+        inputControls.Player.MainAttack.Enable();
+
+        inputControls.Player.Jump.performed += OnJump;
+        inputControls.Player.Jump.Enable();
+
+        inputControls.Player.SwitchWeapon.performed += OnSwitchWeapon;
+        inputControls.Player.SwitchWeapon.Enable();
     }
 
-    public void OnJump(InputAction.CallbackContext context) {
-        isJumping = context.action.triggered;
+    private void OnDisable() {
+        movementInput.Disable();
+        inputControls.Player.MainAttack.Disable();
+        inputControls.Player.Jump.Disable();
+        inputControls.Player.SwitchWeapon.Disable();
     }
+
+    // EVENTS ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void OnMove(InputAction.CallbackContext context) { moveVector = context.ReadValue<Vector2>().normalized; }
+
+    private void OnMainAttack(InputAction.CallbackContext context) { mainAttackPressed = context.action.triggered; }
+
+    private void OnJump(InputAction.CallbackContext context) { jumpPressed = context.action.triggered; }
+
+    private void OnSwitchWeapon(InputAction.CallbackContext context) { switchWeapon = context.started; }
 
     void Update() {
         UpdatePlayerState();
@@ -72,30 +91,21 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         UpdatePlayerMovement();
-
-        // // If player is dead, stop all actions (excluding death)
-        // if (state == PlayerState.Dying)
-        //     return;
-
-        // // If any player type is stunned, prevent movement
-        // if (state != PlayerState.Stunned) {
-        //     Move();
-        // }
     }
 
     private void UpdatePlayerState() {
         switch(type) {
             case PlayerType.Swordmaster:
-                if (combat.GetAttackPressed() && animations.GetAttackReady()) 
-                    SetState(PlayerState.Attacking);
                 // If player input is > 0, player is attempting to move
+                if (CheckAttackTriggered())
+                    SetState(PlayerState.Attacking);
                 else if (!animations.GetIsAttacking()) {
-                    if (movement.x != 0 || movement.y != 0)
+                    if (moveVector.x != 0 || moveVector.y != 0)
                         SetState(PlayerState.Walking);
-                    else if (movement.x == 0 && movement.y == 0)
+                    else if (moveVector.x == 0 && moveVector.y == 0) {
                         SetState(PlayerState.Idle);
+                    }
                 }
-                
 
                 break;
 
@@ -107,9 +117,9 @@ public class PlayerController : MonoBehaviour
                     isFiring = false;
 
                 // If player input is > 0, player is attempting to move
-                if (movement.x != 0 || movement.y != 0)
+                if (moveVector.x != 0 || moveVector.y != 0)
                     SetState(PlayerState.Walking);
-                else if (movement.x == 0 && movement.y == 0)
+                else if (moveVector.x == 0 && moveVector.y == 0)
                     SetState(PlayerState.Idle);
 
                 break;
@@ -119,7 +129,7 @@ public class PlayerController : MonoBehaviour
     private void UpdatePlayerAnimation() {
         switch (state) {
             case PlayerState.Attacking:
-                if (combat.GetAttackPressed() && animations.GetAttackReady()) 
+                if (CheckAttackTriggered())
                     animations.AttackAnim(false);
                 break;
             case PlayerState.Walking:
@@ -144,28 +154,39 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Stunned:
                 return;
             case PlayerState.Walking:
-                Move();
+            // Swordmaster cannot move while attacking
+            if (type == PlayerType.Swordmaster && state == PlayerState.Attacking)
+                return;
+            else
+                move.Movement(moveVector);
                 break;
             default:
                 break;
         }
     }
 
-    private void Move() {
-        // Swordmaster cannot move while attacking
-        if (type == PlayerType.Swordmaster && state == PlayerState.Attacking)
-            return;
-
-        rb.MovePosition(rb.position + 
-                new Vector2(movement.x * horizontalSpeedMultiplier, movement.y * verticalSpeedMultiplier) * playerSpeed * Time.deltaTime);
-        
+    private bool CheckAttackTriggered() {
+        if (animations.GetAttackReady() && mainAttackPressed) { return true; }
+        return false;
     }
+
+    // SETTERS ///////////////////////////////////////////////////////////////////
 
     private void SetState(PlayerState newState) {
         if (state == newState) 
             return;
 
         state = newState;
-        //Debug.Log("New state: " + state);
+        Debug.Log("New State: " + state);
+    }
+
+    // Called at beginning of attack animation to disallow holding the button (Swordmaster)
+    private void SetMainAttackPressed(int flag) {
+        if (flag == 0) mainAttackPressed = false;
+        else if (flag == 1) mainAttackPressed = true;
+    }
+    private void SetSecondaryAttackPressed(int flag) {
+        if (flag == 0) secondaryAttackPressed = false;
+        else if (flag == 1) secondaryAttackPressed = true;
     }
 }
