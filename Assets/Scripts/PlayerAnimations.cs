@@ -18,6 +18,9 @@ public class PlayerAnimations : MonoBehaviour
     private float attackTimer, attackLength;
     private Coroutine oneRoutine;
 
+    [Header("Roll Animation Variables")]
+    private bool isRolling;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +43,7 @@ public class PlayerAnimations : MonoBehaviour
     public void WalkAnim() { PlayAnimation(PlayerAnims.WALK); }
     public void RunAnim() { PlayAnimation(PlayerAnims.RUN); }
     public void SprintAnim() { PlayAnimation(PlayerAnims.SPRINT); }
+    public void RollAnim() { PlayAnimation(PlayerAnims.ROLL); }
 
     public void AttackAnim(bool specialAttackflag) {
         if (!attackReady)
@@ -83,8 +87,20 @@ public class PlayerAnimations : MonoBehaviour
         else if (flag == 1) attackReady = true;
     }
 
+    private void BeginRoll() {
+        attackFlow = 1;
+        isRolling = true;
+        isAttacking = false;
+        attackReady = false;
+    }
+    private void EndRoll() {
+        isRolling = false;
+        attackReady = true;
+    }
+
     // GETTERS / SETTERS //////////////////////////////////////////////
 
     public bool GetIsAttacking() { return isAttacking; }
     public bool GetAttackReady() { return attackReady; }
+    public bool GetIsRolling() { return isRolling; }
 }

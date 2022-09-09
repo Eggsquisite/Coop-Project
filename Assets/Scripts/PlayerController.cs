@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
         Sprinting,
         Jumping,
         Dashing,
+        Rolling,
         Attacking,
         Stunned,
         Dying,
@@ -61,10 +62,15 @@ public class PlayerController : MonoBehaviour
         movementInput.Enable();
 
         inputControls.Player.MainAttack.performed += OnMainAttack;
+        inputControls.Player.MainAttack.canceled += OnMainAttack;
         inputControls.Player.MainAttack.Enable();
 
         inputControls.Player.Jump.performed += OnJump;
         inputControls.Player.Jump.Enable();
+
+        inputControls.Player.Roll.performed += OnRoll;
+        inputControls.Player.Roll.canceled += OnRoll;
+        inputControls.Player.Roll.Enable();
 
         inputControls.Player.Run.performed += OnRun;
         inputControls.Player.Run.canceled += CancelRun;
@@ -81,6 +87,7 @@ public class PlayerController : MonoBehaviour
     private void OnDisable() {
         movementInput.Disable();
         inputControls.Player.MainAttack.Disable();
+        inputControls.Player.Roll.Disable();
         inputControls.Player.Jump.Disable();
         inputControls.Player.Run.Disable();
         inputControls.Player.Sprint.Disable();
@@ -94,6 +101,7 @@ public class PlayerController : MonoBehaviour
     private void OnSprint(InputAction.CallbackContext context) { if (runHeld) sprintHeld = true; }
     private void CancelSprint(InputAction.CallbackContext context) { sprintHeld = false; }
     private void OnMainAttack(InputAction.CallbackContext context) { mainAttackPressed = context.action.triggered; }
+    private void OnRoll(InputAction.CallbackContext context) { rollPressed = context.action.triggered; }
     private void OnJump(InputAction.CallbackContext context) { jumpPressed = context.action.triggered; }
     private void OnSwitchWeapon(InputAction.CallbackContext context) { switchWeapon = context.started; }
 
@@ -113,7 +121,9 @@ public class PlayerController : MonoBehaviour
                 // If player input is > 0, player is attempting to move
                 if (CheckAttackTriggered())
                     SetState(PlayerState.Attacking);
-                else if (!animations.GetIsAttacking()) {
+                else if (CheckRollTriggered())
+                    SetState(PlayerState.Rolling);
+                else if (!animations.GetIsAttacking() && !animations.GetIsRolling()) {
                     if (moveVector.x != 0 || moveVector.y != 0) {
                         if (!runHeld && !sprintHeld)
                             SetState(PlayerState.Walking);
@@ -169,6 +179,10 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Idle:
                 animations.IdleAnim();
                 break;
+            case PlayerState.Rolling:
+                if (CheckRollTriggered())
+                    animations.RollAnim();
+                break;
             case PlayerState.Stunned:
                 break;
             default:
@@ -199,6 +213,9 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Sprinting:
                 move.Sprint(moveVector);
                 break;
+            case PlayerState.Rolling:
+                move.Roll(moveVector);
+                break;
             default:
                 break;
         }
@@ -208,6 +225,14 @@ public class PlayerController : MonoBehaviour
         if (animations.GetAttackReady() && mainAttackPressed) { return true; }
         return false;
     }
+
+    private bool CheckRollTriggered() { 
+        if (animations.GetAttackReady() && rollPressed) {
+            Debug.Log("True");
+            return true; }
+        return false;
+    }
+
     IEnumerator RunBuffer(float maxTimer) {
         yield return new WaitForSeconds(maxTimer);
         CancelRunSprint();

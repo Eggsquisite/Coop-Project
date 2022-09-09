@@ -419,6 +419,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 6b4be6ae-38f5-47e2-bf44-88ddbbacb31a
     m_ActionName: Player/Sprint[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 688f38b8-0590-4e99-b8a9-2b45bda0b815
+    m_ActionName: Player/Roll[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyboardLeft
   m_DefaultActionMap: Player
@@ -550,7 +554,9 @@ MonoBehaviour:
   jumpSpeed: 0
   fallSpeed: 0
   dashTime: 0
-  dashSpeed: 0
+  dashSpeed: 4
+  rollTime: 0
+  rollSpeed: 0
 --- !u!1 &232829387
 GameObject:
   m_ObjectHideFlags: 3

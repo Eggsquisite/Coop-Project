@@ -11,11 +11,16 @@ public class PlayerCombat : MonoBehaviour
     private bool attackPressed;
     private bool switchWeapon;
 
+    [Header("Hit Properties")]
+    private bool isInvincible;
+
     static bool IsDown(InputAction action) => action.phase == InputActionPhase.Performed;
     static bool IsUp(InputAction action) => action.phase == InputActionPhase.Canceled;
 
     // SETTERS //////////////////////////////////////////////////////////////
-
+    public void SetInvincible(bool flag) { 
+        isInvincible = flag;
+    }
 
     // GETTERS ///////////////////////////////////////////////////////////////
     public bool GetAttackPressed() { return attackPressed; }
