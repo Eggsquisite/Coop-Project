@@ -8,7 +8,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
 
     [Header("Movement Values")]
-    [SerializeField] private float playerSpeed;
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float runSpeed;
+    [SerializeField] private float sprintSpeed;
     [SerializeField] [Range(0, 1)]
     private float verticalSpeedMultiplier;
     [SerializeField] [Range(0, 1)]
@@ -27,8 +29,18 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Movement(Vector2 movement) {
+    public void Walk(Vector2 movement) {
         rb.MovePosition(rb.position + 
-        new Vector2(movement.x * horizontalSpeedMultiplier, movement.y * verticalSpeedMultiplier) * playerSpeed * Time.deltaTime);
+        new Vector2(movement.x * horizontalSpeedMultiplier, movement.y * verticalSpeedMultiplier) * walkSpeed * Time.deltaTime);
+    }
+
+    public void Run(Vector2 movement) {
+        rb.MovePosition(rb.position + 
+        new Vector2(movement.x * horizontalSpeedMultiplier, movement.y * verticalSpeedMultiplier) * runSpeed * Time.deltaTime);
+    }
+
+    public void Sprint(Vector2 movement) {
+        rb.MovePosition(rb.position + 
+        new Vector2(movement.x * horizontalSpeedMultiplier, movement.y * verticalSpeedMultiplier) * sprintSpeed * Time.deltaTime);
     }
 }

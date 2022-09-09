@@ -259,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 152036987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2.12, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3875, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -331,7 +331,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 481914772, guid: 4c7dede0c6772c345b1c0474e8b3a19d, type: 3}
+  m_Sprite: {fileID: -1721963945, guid: 4c7dede0c6772c345b1c0474e8b3a19d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -411,6 +411,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8013ecde-9a45-45df-94c5-04f88ade62a6
     m_ActionName: Player/SwitchWeapon[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7ecea821-cb9d-4817-a742-28e55ebb3add
+    m_ActionName: Player/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6b4be6ae-38f5-47e2-bf44-88ddbbacb31a
+    m_ActionName: Player/Sprint[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyboardLeft
   m_DefaultActionMap: Player
@@ -476,6 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  runBufferMaxTime: 0.15
 --- !u!95 &204386200
 Animator:
   serializedVersion: 4
@@ -533,7 +542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f82ab90d113f7b41823a7de09cd55ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 5
+  walkSpeed: 2
+  runSpeed: 3
+  sprintSpeed: 4.5
   verticalSpeedMultiplier: 0.8
   horizontalSpeedMultiplier: 1
   jumpSpeed: 0

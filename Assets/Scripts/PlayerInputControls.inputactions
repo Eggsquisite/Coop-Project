@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControls",
+    "name": "PlayerInputControls",
     "maps": [
         {
             "name": "Player",
@@ -36,6 +36,24 @@
                     "name": "SwitchWeapon",
                     "type": "Button",
                     "id": "8013ecde-9a45-45df-94c5-04f88ade62a6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "7ecea821-cb9d-4817-a742-28e55ebb3add",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "6b4be6ae-38f5-47e2-bf44-88ddbbacb31a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -194,6 +212,28 @@
                     "processors": "",
                     "groups": "KeyboardLeft",
                     "action": "SwitchWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a02e7c26-f7cf-423f-ad1b-1af0a6b475a4",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardLeft",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc5f9ca0-3b3e-481d-9b9f-4b9be882f20a",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Hold(duration=3)",
+                    "processors": "",
+                    "groups": "KeyboardLeft",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

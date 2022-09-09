@@ -37,8 +37,9 @@ public class PlayerAnimations : MonoBehaviour
     }
 
     public void IdleAnim() { PlayAnimation(PlayerAnims.IDLE); }
-
     public void WalkAnim() { PlayAnimation(PlayerAnims.WALK); }
+    public void RunAnim() { PlayAnimation(PlayerAnims.RUN); }
+    public void SprintAnim() { PlayAnimation(PlayerAnims.SPRINT); }
 
     public void AttackAnim(bool specialAttackflag) {
         if (!attackReady)

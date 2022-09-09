@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public enum PlayerState {
         Idle,
         Walking,
+        Running,
+        Sprinting,
         Jumping,
         Dashing,
         Attacking,
@@ -40,8 +42,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveVector;
 
     [Header("Input Values")]
+    [SerializeField] private float runBufferMaxTime;
     private bool mainAttackPressed, secondaryAttackPressed, switchWeapon;
-    private bool jumpPressed;
+    private bool jumpPressed, runHeld, sprintHeld, rollPressed;
+    private Coroutine oneRoutine;
 
     void Awake()
     {
@@ -62,6 +66,14 @@ public class PlayerController : MonoBehaviour
         inputControls.Player.Jump.performed += OnJump;
         inputControls.Player.Jump.Enable();
 
+        inputControls.Player.Run.performed += OnRun;
+        inputControls.Player.Run.canceled += CancelRun;
+        inputControls.Player.Run.Enable();
+
+        inputControls.Player.Sprint.performed += OnSprint;
+        inputControls.Player.Sprint.canceled += CancelSprint;
+        inputControls.Player.Sprint.Enable();
+
         inputControls.Player.SwitchWeapon.performed += OnSwitchWeapon;
         inputControls.Player.SwitchWeapon.Enable();
     }
@@ -70,17 +82,19 @@ public class PlayerController : MonoBehaviour
         movementInput.Disable();
         inputControls.Player.MainAttack.Disable();
         inputControls.Player.Jump.Disable();
+        inputControls.Player.Run.Disable();
+        inputControls.Player.Sprint.Disable();
         inputControls.Player.SwitchWeapon.Disable();
     }
 
     // EVENTS ////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public void OnMove(InputAction.CallbackContext context) { moveVector = context.ReadValue<Vector2>().normalized; }
-
+    private void OnRun(InputAction.CallbackContext context) { runHeld = true; }
+    private void CancelRun(InputAction.CallbackContext context) { runHeld = false; }
+    private void OnSprint(InputAction.CallbackContext context) { if (runHeld) sprintHeld = true; }
+    private void CancelSprint(InputAction.CallbackContext context) { sprintHeld = false; }
     private void OnMainAttack(InputAction.CallbackContext context) { mainAttackPressed = context.action.triggered; }
-
     private void OnJump(InputAction.CallbackContext context) { jumpPressed = context.action.triggered; }
-
     private void OnSwitchWeapon(InputAction.CallbackContext context) { switchWeapon = context.started; }
 
     void Update() {
@@ -100,13 +114,22 @@ public class PlayerController : MonoBehaviour
                 if (CheckAttackTriggered())
                     SetState(PlayerState.Attacking);
                 else if (!animations.GetIsAttacking()) {
-                    if (moveVector.x != 0 || moveVector.y != 0)
-                        SetState(PlayerState.Walking);
+                    if (moveVector.x != 0 || moveVector.y != 0) {
+                        if (!runHeld && !sprintHeld)
+                            SetState(PlayerState.Walking);
+                        else if (runHeld && !sprintHeld)
+                            SetState(PlayerState.Running);
+                        else if (sprintHeld)
+                            SetState(PlayerState.Sprinting);
+                    }
                     else if (moveVector.x == 0 && moveVector.y == 0) {
+                        if (state == PlayerState.Running || state == PlayerState.Sprinting) {
+                            CancelRoutine(oneRoutine);
+                            oneRoutine = StartCoroutine(RunBuffer(runBufferMaxTime));
+                        }
                         SetState(PlayerState.Idle);
                     }
                 }
-
                 break;
 
             case PlayerType.Gunslinger:
@@ -135,8 +158,18 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Walking:
                 animations.WalkAnim();
                 break;
+            case PlayerState.Running:
+                animations.RunAnim();
+                CancelRoutine(oneRoutine);
+                break;
+            case PlayerState.Sprinting:
+                animations.SprintAnim();
+                CancelRoutine(oneRoutine);
+                break;
             case PlayerState.Idle:
                 animations.IdleAnim();
+                break;
+            case PlayerState.Stunned:
                 break;
             default:
                 animations.IdleAnim();
@@ -158,7 +191,13 @@ public class PlayerController : MonoBehaviour
             if (type == PlayerType.Swordmaster && state == PlayerState.Attacking)
                 return;
             else
-                move.Movement(moveVector);
+                move.Walk(moveVector);
+                break;
+            case PlayerState.Running:
+                move.Run(moveVector);
+                break;
+            case PlayerState.Sprinting:
+                move.Sprint(moveVector);
                 break;
             default:
                 break;
@@ -168,6 +207,20 @@ public class PlayerController : MonoBehaviour
     private bool CheckAttackTriggered() {
         if (animations.GetAttackReady() && mainAttackPressed) { return true; }
         return false;
+    }
+    IEnumerator RunBuffer(float maxTimer) {
+        yield return new WaitForSeconds(maxTimer);
+        CancelRunSprint();
+    }
+
+    private void CancelRunSprint() {
+        runHeld = false;
+        sprintHeld = false;
+    }
+
+    private void CancelRoutine(Coroutine routine) {
+        if (routine != null)
+            StopCoroutine(oneRoutine);
     }
 
     // SETTERS ///////////////////////////////////////////////////////////////////
