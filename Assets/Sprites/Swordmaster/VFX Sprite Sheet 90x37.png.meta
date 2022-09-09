@@ -3,7 +3,7 @@ guid: 102970a13c20cc34fb3331f3cb1267a0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -63,13 +63,14 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -114,448 +115,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 148
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4816d32fb0d493f4fadcaa39cbd1fcf5
-      internalID: -1142742192
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_1
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 148
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c6a3bfe34675a7a43bc14f8a801faa4e
-      internalID: 645317511
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_2
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 148
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2fc68ee067ef6d44ea0166eaae57b9b1
-      internalID: -521737008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_3
-      rect:
-        serializedVersion: 2
-        x: 270
-        y: 148
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b90cf8da497f5584d9ab8f6de79858ca
-      internalID: -1381782700
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_4
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 148
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c201a427bd08fc640943b0a2261c5c4f
-      internalID: -377254323
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 111
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a846c70a6717794d8f97a92af577cdd
-      internalID: 1111496405
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_6
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 111
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de7af8dc3f21be24eb2bbae38c78b029
-      internalID: 500306900
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_7
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 111
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3f3b5163cd7eeb4c95d301f152ca57e
-      internalID: -550024254
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_8
-      rect:
-        serializedVersion: 2
-        x: 270
-        y: 111
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bd1dd0bd0652cca4fbde3134d5d1f4bd
-      internalID: -1635736575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_9
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 74
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6734923b54d29d4c9c9a71d8c6d8834
-      internalID: -1080394096
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_10
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 74
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c809d6615c81c2b49b5ad8a3a021fab5
-      internalID: -1344260346
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_11
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 74
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac64f3faf5e19db44b01a74d41cdc0dd
-      internalID: -63833987
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 37
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 964a4e4a693e15f47a465811c466cb45
-      internalID: 179317004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_13
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 37
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ad27f2fbbc967794e91a32ff990d4814
-      internalID: 8968518
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_14
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 37
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57baf063d494690439edf69cf487910f
-      internalID: 2011264732
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_15
-      rect:
-        serializedVersion: 2
-        x: 270
-        y: 37
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e653b53c4423e1418d5187cb7e34a16
-      internalID: -1513350076
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_16
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0e26ebf78bb0a994cb79f87e070f817c
-      internalID: 1360158724
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_17
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 0
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 31b5a3e3a3c6f1f48953761a8e65939b
-      internalID: 2024614229
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_18
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 0
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3504d5462cbae7b40bbe6e3d29437233
-      internalID: 1672387295
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_19
-      rect:
-        serializedVersion: 2
-        x: 270
-        y: 0
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f808cbc758db6fa40bf130386bee04b3
-      internalID: 700086672
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VFX Sprite Sheet 90x37_20
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 0
-        width: 90
-        height: 37
-      alignment: 9
-      pivot: {x: 0.3, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 46c64776cecc3d74f8d9d959d088170e
-      internalID: -1484048986
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -566,28 +126,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      VFX Sprite Sheet 90x37_8: -1635736575
-      VFX Sprite Sheet 90x37_9: -1080394096
-      VFX Sprite Sheet 90x37_0: -1142742192
-      VFX Sprite Sheet 90x37_2: -521737008
-      VFX Sprite Sheet 90x37_3: -1381782700
-      VFX Sprite Sheet 90x37_11: -63833987
-      VFX Sprite Sheet 90x37_13: 8968518
-      VFX Sprite Sheet 90x37_20: -1484048986
-      VFX Sprite Sheet 90x37_12: 179317004
-      VFX Sprite Sheet 90x37_4: -377254323
-      VFX Sprite Sheet 90x37_15: -1513350076
-      VFX Sprite Sheet 90x37_6: 500306900
-      VFX Sprite Sheet 90x37_14: 2011264732
-      VFX Sprite Sheet 90x37_1: 645317511
-      VFX Sprite Sheet 90x37_10: -1344260346
-      VFX Sprite Sheet 90x37_17: 2024614229
-      VFX Sprite Sheet 90x37_19: 700086672
-      VFX Sprite Sheet 90x37_16: 1360158724
-      VFX Sprite Sheet 90x37_5: 1111496405
-      VFX Sprite Sheet 90x37_7: -550024254
-      VFX Sprite Sheet 90x37_18: 1672387295
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
